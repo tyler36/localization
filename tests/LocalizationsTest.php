@@ -14,6 +14,14 @@ use Tyler36\Localization\Localizations;
  */
 class LocalizationsTest extends TestCase
 {
+    protected function setUp()
+    {
+        parent::setUp();
+
+        // SETUP:   Known stating state
+        app()->setLocale('en');
+    }
+
     /**
      * @test
      */

@@ -28,6 +28,8 @@ class HeaderLocaleMiddlewareTest extends TestCase
             return 'pass through';
         })->middleware(HeaderLocaleMiddleware::class);
 
+        // SETUP:   Known stating state
+        app()->setLocale('en');
         $this->defaultLocale = app()->getLocale();
         $this->newLocale     = 'ja';
         $this->assertNotSame($this->newLocale, $this->defaultLocale);
