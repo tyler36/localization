@@ -7,7 +7,7 @@ return [
 
     // This array should contain available languages
     'valid' => [
-        app()->getLocale()
+        app()->getLocale(),
     ],
 
     // The query string used by QueryStringLocaleMiddleware

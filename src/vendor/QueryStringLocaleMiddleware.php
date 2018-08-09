@@ -13,11 +13,12 @@ class QueryStringLocaleMiddleware
 
     /**
      * Handle an incoming request.
-    *
-    * @param \Illuminate\Http\Request $request
-    * @param \Closure $next
-    * @return mixed
-    */
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param \Closure                 $next
+     *
+     * @return mixed
+     */
     public function handle($request, Closure $next)
     {
         $locale = $request->get(self::getQueryStringName());
@@ -38,6 +39,6 @@ class QueryStringLocaleMiddleware
      */
     public static function getQueryStringName()
     {
-        return config(LocalizationServiceProvider::getConfigName() .'.query_string', self::$defaultQueryString);
+        return config(LocalizationServiceProvider::getConfigName().'.query_string', self::$defaultQueryString);
     }
 }
