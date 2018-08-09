@@ -22,7 +22,7 @@ class LocalizationServiceProvider extends ServiceProvider
 
     public function register()
     {
-        $this->app->singleton(LocalizationServiceProvider::class, function () {
+        $this->app->singleton(self::class, function () {
             return new LocalizationServiceProvider();
         });
     }
