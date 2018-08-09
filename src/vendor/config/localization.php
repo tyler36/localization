@@ -15,4 +15,7 @@ return [
 
     // The header to use By HeaderLocaleMiddleware
     'header' => 'X-localization',
+
+    // Name of the attribute on user model that contains preferred local
+    'attribute_name' => 'locale',
 ];

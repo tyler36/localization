@@ -55,3 +55,16 @@ By default, the query string is set to ```lang``` but can be changed through the
     // This will return the site with locale to to German (de)
     https://cool-site.dev?lang=de
 ```
+
+
+### Option 3: Member preference
+This middleware uses an attribute on the User model to set the locale. When a member is logged in, it check their saved locale and applies it.
+
+- Register
+```\Tyler36\Localization\MemberLanguageMiddleware::class```
+
+- Create the attribute on User models
+By default, the query string is set to ```locale``` but can be changed through the config file.
+```
+    $table->string('locale', 2)->default(app()->getLocale());
+```
