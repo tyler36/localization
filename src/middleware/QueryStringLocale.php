@@ -1,13 +1,15 @@
 <?php
 
-namespace Tyler36\Localization;
+namespace Tyler36\Localization\Middleware;
 
 use Closure;
+use Tyler36\Localization\Localizations;
+use Tyler36\Localization\LocalizationServiceProvider;
 
 /**
- * Class WebLocaleMiddleware
+ * Class QueryStringLocale
  */
-class QueryStringLocaleMiddleware
+class QueryStringLocale
 {
     protected static $defaultQueryString = 'lang';
 
@@ -24,9 +26,7 @@ class QueryStringLocaleMiddleware
         $locale = $request->get(self::getQueryStringName());
 
         // Update locale
-        if (Localizations::isValid($locale)) {
-            app()->setLocale($locale);
-        }
+        Localizations::set($locale);
 
         // Continue
         return $next($request);

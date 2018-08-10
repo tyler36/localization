@@ -1,13 +1,15 @@
 <?php
 
-namespace Tyler36\Localization;
+namespace Tyler36\Localization\Middleware;
 
 use Closure;
+use Tyler36\Localization\Localizations;
+use Tyler36\Localization\LocalizationServiceProvider;
 
 /**
- * MemberLanguageMiddleware class
+ * MemberLocale class
  */
-class MemberLanguageMiddleware
+class MemberLocale
 {
     public static $defaultAttribute = 'locale';
 
@@ -25,9 +27,8 @@ class MemberLanguageMiddleware
             // Update locale
             $locale = self::getLocaleFromAuthenicatedUser();
 
-            if (Localizations::isValid($locale) && $locale !== app()->getLocale()) {
-                app()->setLocale($locale);
-            }
+            // Update locale
+            Localizations::set($locale);
         }
 
         return $next($request);
@@ -50,6 +51,6 @@ class MemberLanguageMiddleware
      */
     public function getAttributeName()
     {
-        return config(LocalizationServiceProvider::$namespace.'.attribute_name', self::$defaultAttribute);
+        return config(LocalizationServiceProvider::getConfigName().'.attribute_name', self::$defaultAttribute);
     }
 }

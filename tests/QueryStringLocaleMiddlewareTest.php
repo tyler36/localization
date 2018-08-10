@@ -4,7 +4,7 @@ namespace Tests\Unit;
 
 use Route;
 use Tests\TestCase;
-use Tyler36\Localization\QueryStringLocaleMiddleware;
+use Tyler36\Localization\Middleware\QueryStringLocale;
 
 /**
  * Class QueryStringLocaleMiddlewareTest
@@ -24,7 +24,7 @@ class QueryStringLocaleMiddlewareTest extends TestCase
         $this->route = 'test';
         Route::get($this->route, function () {
             return 'pass through';
-        })->middleware(QueryStringLocaleMiddleware::class);
+        })->middleware(QueryStringLocale::class);
 
         // SETUP:   Known stating state
         app()->setLocale('en');
