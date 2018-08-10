@@ -17,17 +17,23 @@ class Localizations
     /**
      * Set current locale
      *
+     * @param null|mixed $locale
+     *
      * @return void
      */
     public static function set($locale = null)
     {
-        return app()->setLocale($locale);
+        return (self::isValid($locale) && $locale !== self::current())
+            ? app()->setLocale($locale)
+            : false;
     }
 
     /**
      * Check if language is valid
      *
-     * @return boolean
+     * @param null|mixed $lang
+     *
+     * @return bool
      */
     public static function isValid($lang = null)
     {
@@ -35,7 +41,7 @@ class Localizations
             return false;
         }
 
-        return in_array($lang, self::getValid());
+        return in_array($lang, self::getValid(), true);
     }
 
     /**
@@ -45,6 +51,6 @@ class Localizations
      */
     public static function getValid()
     {
-        return config(LocalizationServiceProvider::getConfigName() . '.valid', [self::current()]);
+        return config(LocalizationServiceProvider::getConfigName().'.valid', [self::current()]);
     }
 }

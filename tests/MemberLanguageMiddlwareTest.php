@@ -7,7 +7,7 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Route;
 use Tests\TestCase;
 use Tyler36\Localization\Localizations;
-use Tyler36\Localization\MemberLanguageMiddleware;
+use Tyler36\Localization\Middleware\MemberLanguage;
 
 /**
  * Class MemberLanguageMiddlwareTest
@@ -28,7 +28,7 @@ class MemberLanguageMiddlwareTest extends TestCase
         $this->route = 'test';
         Route::get($this->route, function () {
             return 'pass through';
-        })->middleware(MemberLanguageMiddleware::class);
+        })->middleware(MemberLanguage::class);
 
         // SETUP:   Known stating state
         app()->setLocale('en');

@@ -1,24 +1,26 @@
 <?php
 
-namespace Tyler36\Localization;
+namespace Tyler36\Localization\Middleware;
 
 use Closure;
 use Tyler36\Localization\Localizations;
+use Tyler36\Localization\LocalizationServiceProvider;
 
 /**
- * Class HeaderLocaleMiddleware
+ * Class HeaderLocale
  */
-class HeaderLocaleMiddleware
+class HeaderLocale
 {
     protected static $defaultHeader = 'X-localization';
 
     /**
      * Handle an incoming request.
-    *
-    * @param \Illuminate\Http\Request $request
-    * @param \Closure $next
-    * @return mixed
-    */
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param \Closure                 $next
+     *
+     * @return mixed
+     */
     public function handle($request, Closure $next)
     {
         // Check for local
@@ -27,16 +29,19 @@ class HeaderLocaleMiddleware
             : app()->getLocale();
 
         // Update locale
-        if (Localizations::isValid($locale)) {
-            app()->setLocale($locale);
-        }
+        Localizations::set($locale);
 
         // Continue
         return $next($request);
     }
 
+    /**
+     * Get attribute name of header
+     *
+     * @return void
+     */
     public static function getHeaderName()
     {
-        return config(LocalizationServiceProvider::getConfigName() .'.header', self::$defaultHeader);
+        return config(LocalizationServiceProvider::getConfigName().'.header', self::$defaultHeader);
     }
 }

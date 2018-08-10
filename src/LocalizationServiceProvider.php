@@ -8,7 +8,7 @@ class LocalizationServiceProvider extends ServiceProvider
 {
     public static $namespace = 'localization';
 
-    protected static $vendorPath  = __DIR__.'/vendor';
+    protected static $vendorPath  = __DIR__;
 
     /**
      * Perform post-registration booting of services.

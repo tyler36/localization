@@ -28,7 +28,7 @@ Add the desired middle to the ```app/Http/Kernel.php``` file in the required loc
 This middleware uses a request header to set the locale. By default, the query string is set to ```X-localization``` but can be changed through the config file. It's ideal for making request via javascript.
 
 - Register
-```\Tyler36\Localization\HeaderLocaleMiddleware::class```
+```\Tyler36\Localization\Middleware\HeaderLocale::class```
 
 
 - Set the header in via vanilla javascript or preferred javascript framework. For example, you can apply the header to all ```Axios``` request with the following:
@@ -44,7 +44,7 @@ Now, when you send a request to the endpoint Laravel will update the locale to m
 This middleware is designed to use a query string.
 
 - Register
-```\Tyler36\Localization\QueryStringLocaleMiddleware::class```
+```\Tyler36\Localization\Middleware\QueryStringLocale::class```
 
 - Add the query string to a URL.
 By default, the query string is set to ```lang``` but can be changed through the config file.
@@ -61,7 +61,7 @@ By default, the query string is set to ```lang``` but can be changed through the
 This middleware uses an attribute on the User model to set the locale. When a member is logged in, it check their saved locale and applies it.
 
 - Register
-```\Tyler36\Localization\MemberLanguageMiddleware::class```
+```\Tyler36\Localization\Middleware\MemberLanguage::class```
 
 - Create the attribute on User models
 By default, the query string is set to ```locale``` but can be changed through the config file.

@@ -4,7 +4,7 @@ namespace Tests\Unit;
 
 use Route;
 use Tests\TestCase;
-use Tyler36\Localization\HeaderLocaleMiddleware;
+use Tyler36\Localization\Middleware\HeaderLocale;
 
 /**
  * Class HeaderLocaleMiddlewareTest
@@ -26,7 +26,7 @@ class HeaderLocaleMiddlewareTest extends TestCase
 
         Route::get($this->route, function () {
             return 'pass through';
-        })->middleware(HeaderLocaleMiddleware::class);
+        })->middleware(HeaderLocale::class);
 
         // SETUP:   Known stating state
         app()->setLocale('en');
