@@ -68,3 +68,28 @@ By default, the query string is set to ```locale``` but can be changed through t
 ```
     $table->string('locale', 2)->default(app()->getLocale());
 ```
+
+
+### Option 4: Session
+This middleware looks for a value in Laravel session.
+
+- Register
+```\Tyler36\Localization\Middleware\SessionLocale::class```
+
+- Create a route that saves the ```session_key => locale```  to the session
+By default, the ```session_key``` is set to ```locale``` but can be changed through the config file.
+```
+    $key = config('localization.session_key', 'locale');
+    session([$key => request()->get($key)]);
+```
+or you could use the included controller by updating your route file
+```
+// routes/web.php
+Route::get('/locale/{locale}', [
+    'as' => 'localization.session',
+    'uses' => '\Tyler36\Localization\Controller\LocaleController@session'
+]);
+
+// blade - create links
+route('localization.session', [config('localization.session_key') => $locale]
+```

@@ -14,4 +14,7 @@ return [
 
     // The query string used by QueryStringLocale middleware
     'query_string' => 'locale',
+
+    // Name of the session key stored in session used by SessionLocale middleware
+    'session_key' => 'locale',
 ];
