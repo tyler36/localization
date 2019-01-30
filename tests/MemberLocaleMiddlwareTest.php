@@ -20,6 +20,8 @@ class MemberLocaleMiddlwareTest extends TestCase
 {
     use DatabaseMigrations;
 
+    protected $localeColumn;
+
     protected function setUp()
     {
         parent::setUp();
@@ -38,6 +40,8 @@ class MemberLocaleMiddlwareTest extends TestCase
 
         // SETUP:       Valid locales
         config()->set('localizations.valid', [$this->defaultLocale, $this->newLocale]);
+
+        $this->localeColumn = config('localizations.attribute_name', 'locale');
     }
 
     /**
@@ -45,11 +49,8 @@ class MemberLocaleMiddlwareTest extends TestCase
      */
     public function it_sets_the_locale_to_members_preference()
     {
-        $languageField    = 'lang';
-        config()->set('localizations.attribute_name', $languageField);
-
-        $member           = factory(User::class)->create([$languageField => $this->newLocale]);
-        $this->assertNotSame($member->{$languageField}, $this->defaultLocale);
+        $member           = factory(User::class)->create([$this->localeColumn => $this->newLocale]);
+        $this->assertNotSame($member->{$this->localeColumn}, $this->defaultLocale);
 
         $this->assertSame(app()->getLocale(), $this->defaultLocale);
         $this->actingAs($member)
@@ -63,12 +64,9 @@ class MemberLocaleMiddlwareTest extends TestCase
      */
     public function it_only_applies_valid_locales()
     {
-        $languageField    = 'lang';
-        config()->set('localizations.attribute_name', $languageField);
-
-        $member           = factory(User::class)->create([$languageField => 'zz']);
-        $this->assertNotSame($member->{$languageField}, $this->defaultLocale);
-        $this->assertFalse(Localizations::isValid($member->{$languageField}));
+        $member           = factory(User::class)->create([$this->localeColumn => 'zz']);
+        $this->assertNotSame($member->{$this->localeColumn}, $this->defaultLocale);
+        $this->assertFalse(Localizations::isValid($member->{$this->localeColumn}));
 
         $this->assertSame(app()->getLocale(), $this->defaultLocale);
         $this->actingAs($member)

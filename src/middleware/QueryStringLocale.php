@@ -11,7 +11,7 @@ use Tyler36\Localization\LocalizationServiceProvider;
  */
 class QueryStringLocale
 {
-    protected static $defaultQueryString = 'lang';
+    protected static $defaultQueryString = 'locale';
 
     /**
      * Handle an incoming request.

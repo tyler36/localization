@@ -46,7 +46,8 @@ class QueryStringLocaleMiddlewareTest extends TestCase
         $this->assertNotSame($this->newLocale, app()->getLocale());
 
         // VISIT:       With query string set
-        $this->get("{$this->route}?lang={$this->newLocale}");
+        $defaultQueryString = config('localization.query_string', 'locale');
+        $this->get("{$this->route}?$defaultQueryString={$this->newLocale}");
 
         // ASSERT:      Locale was updated
         $this->assertSame($this->newLocale, app()->getLocale());
@@ -62,7 +63,7 @@ class QueryStringLocaleMiddlewareTest extends TestCase
         $this->assertNotSame($this->newLocale, app()->getLocale());
 
         // Set query string
-        $queryStringName = 'locale';
+        $queryStringName = 'lang';
         config()->set('localization.query_string', $queryStringName);
 
         // VISIT:       With query string set
